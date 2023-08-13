@@ -55,6 +55,7 @@ function createLiElement(userData){
         }
     }
     editBtn.onclick = async(e)=>{
+        console.log(userData)
         const target = e.target.parentElement;
         try{
             amount.value = userData.price;
@@ -63,16 +64,23 @@ function createLiElement(userData){
 
             const options = category.options;
             for (let i = 0; i < options.length; i++) {
-            if (options[i].text === userData.category) {
-                category.selectedIndex = i;
-                break;
+                if (options[i].text === userData.category) {
+                    category.selectedIndex = i;
+                    break;
+                }
             }
-        }
-
+        myForm.addEventListener('submit',async ()=>{
             const id = userData.id;
-
-            const user = await axios.delete(`http://localhost:4000/expense/delete-expense/${id}`)
+            const updatedData = {
+                price : amount.value,
+                description :description.value,
+                category : document.getElementById('category').options[document.getElementById('category').value].text
+            }
+            const user = await axios.put(`http://localhost:4000/expense/edit-expense/${id}`,updatedData)
+            console.log(user.data);
             userList.removeChild(target)
+        })
+            
         } catch(error){
             console.log(error)
         }

@@ -9,4 +9,6 @@ router.delete('/delete-expense/:id',expenseController.deleteFromDatabase)
 
 router.get('/get-expense',expenseController.getAllDataFromDatabase);
 
+router.put('/edit-expense/:id',expenseController.editDataInDatabase)
+
 module.exports = router;

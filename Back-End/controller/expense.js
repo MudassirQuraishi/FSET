@@ -26,6 +26,24 @@ exports.deleteFromDatabase = async (req, res, next) => {
     
 }
 
+exports.editDataInDatabase = async (req,res,next)=>{
+    try{
+        const id = req.params.id;
+        
+        const data = await Expense.update({
+            description : req.body.description,
+            price : req.body.price,
+            category : req.body.category,
+        }, {where :{id :id}});
+        
+        const updatedData = await Expense.findByPk(id)
+        res.status(200).json(updatedData.dataValues);
+    }catch(error){
+        console.log(error);
+    }
+    
+}
+
 exports.getAllDataFromDatabase = async (req,res,next)=>{
 
     try{
