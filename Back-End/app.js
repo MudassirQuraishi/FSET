@@ -11,16 +11,16 @@ const cors = require('cors');
 const Sequelize= require('./util/database');
 
 // importing routes
-const routes = require('./routes/routes')
+const routes = require('./routes/routes');
 
-const User = require('./model/expense')
+const User = require('./model/expense');
 
 const app = express();
 app.use(bodyParser.urlencoded({ extended:false }));
 app.use(cors());
 app.use(bodyParser.json())
 
-app.use('/expense',routes)
+app.use('/expense',routes);
 
 Sequelize.sync()
 .then(()=>{
@@ -28,5 +28,5 @@ Sequelize.sync()
     console.log(`Server running at ${port}`);
     app.listen(port);
 })
-.catch (err => console.log(err))
+.catch (err => console.log(err));
 
